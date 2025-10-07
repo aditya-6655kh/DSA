@@ -12,7 +12,7 @@ public class SelectionSort {
                     minIdx = j;
                 }
             }
-
+            
             int temp = arr[minIdx];
             arr[minIdx] = arr[i];
             arr[i] = temp;
