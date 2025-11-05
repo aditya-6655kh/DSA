@@ -22,7 +22,7 @@ public class Graph {
     }
 
 
-    void bfs(int start){
+    void bfs(int start){ // O( V + E ) coz we used adjacency list
         boolean[] visited = new boolean[V];
         Queue<Integer> queue = new LinkedList<>();
 
@@ -40,6 +40,22 @@ public class Graph {
                 }
             }
         }
+    }
+
+    void dfsUtil(int node, boolean[] visited){ // O( V + E ) coz we used adjacency list
+        visited[node] = true;
+        System.out.print(node + " ");
+
+        for(Edge e: adjList[node]){
+            if(!visited[e.dest]){
+                dfsUtil(e.dest, visited);
+            }
+        }
+    }
+
+    void dfs(int start){
+        boolean[] visited = new boolean[V];
+        dfsUtil(start, visited);
     }
 
 
@@ -67,6 +83,8 @@ public class Graph {
         g.printGraph();
 
         g.bfs(0);
+        System.out.println();
+        g.dfs(0);
     }
 }
 
