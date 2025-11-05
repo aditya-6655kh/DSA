@@ -58,6 +58,24 @@ public class Graph {
         dfsUtil(start, visited);
     }
 
+    boolean hasPathUtil(int src, int dest, boolean[] vis){
+        if(src == dest) return true;
+
+        vis[src] = true;
+
+        for(Edge e: adjList[src]){
+            if(!vis[e.dest] && hasPathUtil(e.dest, dest, vis)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void hasPath(int src, int dest){
+        boolean[] visited = new boolean[V];
+        System.out.println(hasPathUtil(src, dest, visited));
+    }
+
 
     void printGraph(){
         System.out.println("Graph adjacency list: src -> dest : wt");
@@ -85,6 +103,8 @@ public class Graph {
         g.bfs(0);
         System.out.println();
         g.dfs(0);
+        System.out.println();
+        g.hasPath(0, 4);
     }
 }
 
