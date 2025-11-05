@@ -1,11 +1,11 @@
 package Graphs;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Graph {
     ArrayList<Edge>[] adjList;
     int V;
-    
+
     @SuppressWarnings("unchecked")
     public Graph(int v){
         V = v;
@@ -18,9 +18,33 @@ public class Graph {
 
     void addEdge(int src, int dest, int wt){
         adjList[src].add(new Edge(src, dest, wt));
+        adjList[dest].add(new Edge(dest, src, wt)); 
     }
 
+
+    void bfs(int start){
+        boolean[] visited = new boolean[V];
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.add(start);
+        visited[start] = true;
+
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            System.out.print(node + " ");
+
+            for (Edge e : adjList[node]) {
+                if (!visited[e.dest]) {
+                    visited[e.dest] = true;
+                    queue.offer(e.dest);
+                }
+            }
+        }
+    }
+
+
     void printGraph(){
+        System.out.println("Graph adjacency list: src -> dest : wt");
         for(int i=0; i<V; i++){
             System.out.println("Adjacency list of vertex "+i);
             for(Edge e: adjList[i]){
@@ -42,7 +66,7 @@ public class Graph {
 
         g.printGraph();
 
-        System.out.println("Graph created successfully!");
+        g.bfs(0);
     }
 }
 
